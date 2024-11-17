@@ -1,0 +1,44 @@
+Ubuntu 22.04
+
+nccl cuda cudnn 已安装 12.1
+
+(base) xongrong@TeslaP40:~/ai_test$ nvcc -V
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2023 NVIDIA Corporation
+Built on Tue_Feb__7_19:32:13_PST_2023
+Cuda compilation tools, release 12.1, V12.1.66
+Build cuda_12.1.r12.1/compiler.32415258_0
+
+(base) xongrong@TeslaP40:~/ai_test$ free -l -h
+               total        used        free      shared  buff/cache   available
+内存：      188Gi       1.5Gi       158Gi        25Mi        28Gi       185Gi
+低：         188Gi        30Gi       158Gi
+高：            0B          0B          0B
+交换：      2.0Gi       353Mi       1.7Gi
+
+(base) xongrong@TeslaP40:~/ai_test$ nvidia-smi
+Sat Nov 16 21:06:42 2024
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 565.57.01              Driver Version: 565.57.01      CUDA Version: 12.7     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  Tesla P40                      On  |   00000000:03:00.0 Off |                  Off |
+| N/A   23C    P8              9W /  250W |       0MiB /  24576MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   1  Tesla P40                      On  |   00000000:05:00.0 Off |                  Off |
+| N/A   20C    P8              8W /  250W |       0MiB /  24576MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+

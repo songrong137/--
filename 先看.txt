@@ -1,0 +1,249 @@
+
+注: 在autodl的cuda 12.1环境中 通过简单的pip install -r a.txt安装后就可运行(acceelerate launch train_glm_4.py --config_file def.yaml)且可正常训练
+      同时本机也曾正常运行   但不知为何(闲的没事瞎改改不回来了[transformers版本跟换和别的])复现
+模型 由huggingface 下载的ChatGlm4-4v-9b 没有base模型 可正常推理
+ 与autodl训练不同安装deeepspeed不同 
+显卡 tesla p40 *2
+
+deepspeed 设置
+
+ [WARNING]  async_io requires the dev libaio .so object and headers but these were not found.
+ [WARNING]  async_io: please install the libaio-dev package with apt
+ [WARNING]  If libaio is already installed (perhaps from source), try setting the CFLAGS and LDFLAGS environment variables to where it can be found.
+async_io ............... [NO] ....... [NO]
+fused_adam ............. [NO] ....... [OKAY]
+cpu_adam ............... [YES] ...... [OKAY]
+cpu_adagrad ............ [NO] ....... [OKAY]
+cpu_lion ............... [NO] ....... [OKAY]
+ [WARNING]  Please specify the CUTLASS repo directory as environment variable $CUTLASS_PATH
+evoformer_attn ......... [NO] ....... [NO]
+ [WARNING]  NVIDIA Inference is only supported on Ampere and newer architectures
+fp_quantizer ........... [NO] ....... [NO]
+fused_lamb ............. [NO] ....... [OKAY]
+fused_lion ............. [NO] ....... [OKAY]
+inference_core_ops ..... [NO] ....... [OKAY]
+cutlass_ops ............ [NO] ....... [OKAY]
+transformer_inference .. [NO] ....... [OKAY]
+quantizer .............. [NO] ....... [OKAY]
+ragged_device_ops ...... [NO] ....... [OKAY]
+ragged_ops ............. [NO] ....... [OKAY]
+random_ltd ............. [NO] ....... [OKAY]
+ [WARNING]  sparse_attn requires a torch version >= 1.5 and < 2.0 but detected 2.5
+ [WARNING]  using untested triton version (3.1.0), only 1.0.0 is known to be compatible
+sparse_attn ............ [NO] ....... [NO]
+spatial_inference ...... [NO] ....... [OKAY]
+transformer ............ [NO] ....... [OKAY]
+stochastic_transformer . [NO] ....... [OKAY]
+
+
+
+
+[2024-11-16 21:37:30,493] [INFO] [real_accelerator.py:203:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+ [WARNING]  async_io requires the dev libaio .so object and headers but these were not found.
+ [WARNING]  async_io: please install the libaio-dev package with apt
+ [WARNING]  If libaio is already installed (perhaps from source), try setting the CFLAGS and LDFLAGS environment variables to where it can be found.
+ [WARNING]  Please specify the CUTLASS repo directory as environment variable $CUTLASS_PATH
+ [WARNING]  NVIDIA Inference is only supported on Ampere and newer architectures
+ [WARNING]  sparse_attn requires a torch version >= 1.5 and < 2.0 but detected 2.5
+ [WARNING]  using untested triton version (3.1.0), only 1.0.0 is known to be compatible
+/home/xongrong/apping/counda/lib/python3.12/site-packages/deepspeed/runtime/zero/linear.py:47: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  @autocast_custom_fwd
+/home/xongrong/apping/counda/lib/python3.12/site-packages/deepspeed/runtime/zero/linear.py:66: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  @autocast_custom_bwd
+--------------------------------------------------
+DeepSpeed C++/CUDA extension op report
+--------------------------------------------------
+NOTE: Ops not installed will be just-in-time (JIT) compiled at
+      runtime if needed. Op compatibility means that your system
+      meet the required dependencies to JIT install the op.
+--------------------------------------------------
+JIT compiled ops requires ninja
+ninja .................. [OKAY]
+--------------------------------------------------
+op name ................ installed .. compatible
+--------------------------------------------------
+ [WARNING]  async_io requires the dev libaio .so object and headers but these were not found.
+ [WARNING]  async_io: please install the libaio-dev package with apt
+ [WARNING]  If libaio is already installed (perhaps from source), try setting the CFLAGS and LDFLAGS environment variables to where it can be found.
+async_io ............... [NO] ....... [NO]
+fused_adam ............. [NO] ....... [OKAY]
+cpu_adam ............... [YES] ...... [OKAY]
+cpu_adagrad ............ [NO] ....... [OKAY]
+cpu_lion ............... [NO] ....... [OKAY]
+ [WARNING]  Please specify the CUTLASS repo directory as environment variable $CUTLASS_PATH
+evoformer_attn ......... [NO] ....... [NO]
+ [WARNING]  NVIDIA Inference is only supported on Ampere and newer architectures
+fp_quantizer ........... [NO] ....... [NO]
+fused_lamb ............. [NO] ....... [OKAY]
+fused_lion ............. [NO] ....... [OKAY]
+inference_core_ops ..... [NO] ....... [OKAY]
+cutlass_ops ............ [NO] ....... [OKAY]
+transformer_inference .. [NO] ....... [OKAY]
+quantizer .............. [NO] ....... [OKAY]
+ragged_device_ops ...... [NO] ....... [OKAY]
+ragged_ops ............. [NO] ....... [OKAY]
+random_ltd ............. [NO] ....... [OKAY]
+ [WARNING]  sparse_attn requires a torch version >= 1.5 and < 2.0 but detected 2.5
+ [WARNING]  using untested triton version (3.1.0), only 1.0.0 is known to be compatible
+sparse_attn ............ [NO] ....... [NO]
+spatial_inference ...... [NO] ....... [OKAY]
+transformer ............ [NO] ....... [OKAY]
+stochastic_transformer . [NO] ....... [OKAY]
+--------------------------------------------------
+DeepSpeed general environment info:
+torch install path ............... ['/home/xongrong/apping/counda/lib/python3.12/site-packages/torch']
+torch version .................... 2.5.1
+deepspeed install path ........... ['/home/xongrong/apping/counda/lib/python3.12/site-packages/deepspeed']
+deepspeed info ................... 0.14.4, unknown, unknown
+torch cuda version ............... 12.1
+torch hip version ................ None
+nvcc version ..................... 12.1
+deepspeed wheel compiled w. ...... torch 2.5, cuda 12.1
+shared memory (/dev/shm) size .... 94.27 GB
+
+
+
+运行命令: accelerate launch train_glm_4.py --config_file def.yaml
+
+报错截取:
+ ***** Running training *****
+  Num examples = 10
+  Num Epochs = 20
+  Instantaneous batch size per device = 1
+  Total train batch size (w. parallel, distributed & accumulation) = 2
+  Gradient Accumulation steps = 1
+  Total optimization steps = 100
+  Number of trainable parameters = 2,785,280
+  0%|                                                                                                                                                                                    | 0/100 [00:00<?, ?it/s][rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/xongrong/ai_test/train_glm_4.py", line 300, in <module>
+[rank0]:     trainer.train()
+[rank0]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/transformers/trainer.py", line 1948, in train
+[rank0]:     return inner_training_loop(
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/transformers/trainer.py", line 2289, in _inner_training_loop
+[rank0]:     tr_loss_step = self.training_step(model, inputs)
+[rank0]:                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/home/xongrong/ai_test/train_glm_4.py", line 154, in training_step
+[rank0]:     self.accelerator.backward(loss)
+[rank0]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/accelerate/accelerator.py", line 2233, in backward
+[rank0]:     self.deepspeed_engine_wrapped.backward(loss, **kwargs)
+[rank0]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/accelerate/utils/deepspeed.py", line 186, in backward
+[rank0]:     self.engine.backward(loss, **kwargs)
+[rank0]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/deepspeed/utils/nvtx.py", line 15, in wrapped_fn
+[rank0]:     ret_val = func(*args, **kwargs)
+[rank0]:               ^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/deepspeed/runtime/engine.py", line 1967, in backward
+[rank0]:     self.optimizer.backward(loss, retain_graph=retain_graph)
+[rank0]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/deepspeed/utils/nvtx.py", line 15, in wrapped_fn
+[rank0]:     ret_val = func(*args, **kwargs)
+[rank0]:               ^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/deepspeed/runtime/zero/stage3.py", line 2213, in backward
+[rank0]:     self.loss_scaler.backward(loss.float(), retain_graph=retain_graph)
+[rank0]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/deepspeed/runtime/fp16/loss_scaler.py", line 63, in backward
+[rank0]:     scaled_loss.backward(retain_graph=retain_graph)
+[rank0]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/torch/_tensor.py", line 581, in backward
+[rank0]:     torch.autograd.backward(
+[rank0]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/torch/autograd/__init__.py", line 347, in backward
+[rank0]:     _engine_run_backward(
+[rank0]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/torch/autograd/graph.py", line 825, in _engine_run_backward
+[rank0]:     return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/torch/autograd/function.py", line 307, in apply
+[rank0]:     return user_fn(self, *args)
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/torch/amp/autocast_mode.py", line 511, in decorate_bwd
+[rank0]:     return bwd(*args, **kwargs)
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/deepspeed/runtime/zero/linear.py", line 73, in backward
+[rank0]:     input, weight, bias = ctx.saved_tensors
+[rank0]:                           ^^^^^^^^^^^^^^^^^
+[rank0]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/torch/utils/checkpoint.py", line 1129, in unpack_hook
+[rank0]:     frame.check_recomputed_tensors_match(gid)
+[rank0]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/torch/utils/checkpoint.py", line 903, in check_recomputed_tensors_match
+[rank0]:     raise CheckpointError(
+[rank0]: torch.utils.checkpoint.CheckpointError: torch.utils.checkpoint: Recomputed values for the following tensors have different metadata than during the forward pass.
+[rank0]: tensor at position 4:
+[rank0]: saved metadata: {'shape': torch.Size([4096]), 'dtype': torch.float32, 'device': device(type='cuda', index=0)}
+[rank0]: recomputed metadata: {'shape': torch.Size([0]), 'dtype': torch.float32, 'device': device(type='cuda', index=0)}
+[rank0]: tensor at position 6:
+[rank0]: saved metadata: {'shape': torch.Size([4608, 4096]), 'dtype': torch.float32, 'device': device(type='cuda', index=0)}
+[rank0]: recomputed metadata: {'shape': torch.Size([0]), 'dtype': torch.float32, 'device': device(type='cuda', index=0)}
+[rank0]: tensor at position 7:
+[rank0]: saved metadata: {'shape': torch.Size([4608]), 'dtype': torch.float32, 'device': device(type='cuda', index=0)}
+[rank0]: recomputed metadata: {'shape': torch.Size([0]), 'dtype': torch.float32, 'device': device(type='cuda', index=0)}
+[rank0]: tensor at position 29:
+[rank0]: saved metadata: {'shape': torch.Size([4096, 4096]), 'dtype': torch.float32, 'device': device(type='cuda', index=0)}
+[rank0]: recomputed metadata: {'shape': torch.Size([0]), 'dtype': torch.float32, 'device': device(type='cuda', index=0)}
+[rank0]: tensor at position 34:
+[rank0]: saved metadata: {'shape': torch.Size([4096]), 'dtype': torch.float32, 'device': device(type='cuda', index=0)}
+[rank0]: recomputed metadata: {'shape': torch.Size([0]), 'dtype': torch.float32, 'device': device(type='cuda', index=0)}
+[rank0]: tensor at position 36:
+[rank0]: saved metadata: {'shape': torch.Size([27392, 4096]), 'dtype': torch.float32, 'device': device(type='cuda', index=0)}
+[rank0]: recomputed metadata: {'shape': torch.Size([0]), 'dtype': torch.float32, 'device': device(type='cuda', index=0)}
+
+[rank1]: Traceback (most recent call last):
+[rank1]:   File "/home/xongrong/ai_test/train_glm_4.py", line 300, in <module>
+[rank1]:     trainer.train()
+[rank1]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/transformers/trainer.py", line 1948, in train
+[rank1]:     return inner_training_loop(
+[rank1]:            ^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/transformers/trainer.py", line 2289, in _inner_training_loop
+[rank1]:     tr_loss_step = self.training_step(model, inputs)
+[rank1]:                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/home/xongrong/ai_test/train_glm_4.py", line 154, in training_step
+[rank1]:     self.accelerator.backward(loss)
+[rank1]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/accelerate/accelerator.py", line 2233, in backward
+[rank1]:     self.deepspeed_engine_wrapped.backward(loss, **kwargs)
+[rank1]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/accelerate/utils/deepspeed.py", line 186, in backward
+[rank1]:     self.engine.backward(loss, **kwargs)
+[rank1]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/deepspeed/utils/nvtx.py", line 15, in wrapped_fn
+[rank1]:     ret_val = func(*args, **kwargs)
+[rank1]:               ^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/deepspeed/runtime/engine.py", line 1967, in backward
+[rank1]:     self.optimizer.backward(loss, retain_graph=retain_graph)
+[rank1]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/deepspeed/utils/nvtx.py", line 15, in wrapped_fn
+[rank1]:     ret_val = func(*args, **kwargs)
+[rank1]:               ^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/deepspeed/runtime/zero/stage3.py", line 2213, in backward
+[rank1]:     self.loss_scaler.backward(loss.float(), retain_graph=retain_graph)
+[rank1]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/deepspeed/runtime/fp16/loss_scaler.py", line 63, in backward
+[rank1]:     scaled_loss.backward(retain_graph=retain_graph)
+[rank1]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/torch/_tensor.py", line 581, in backward
+[rank1]:     torch.autograd.backward(
+[rank1]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/torch/autograd/__init__.py", line 347, in backward
+[rank1]:     _engine_run_backward(
+[rank1]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/torch/autograd/graph.py", line 825, in _engine_run_backward
+[rank1]:     return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+[rank1]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/torch/autograd/function.py", line 307, in apply
+[rank1]:     return user_fn(self, *args)
+[rank1]:            ^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/torch/amp/autocast_mode.py", line 511, in decorate_bwd
+[rank1]:     return bwd(*args, **kwargs)
+[rank1]:            ^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/deepspeed/runtime/zero/linear.py", line 73, in backward
+[rank1]:     input, weight, bias = ctx.saved_tensors
+[rank1]:                           ^^^^^^^^^^^^^^^^^
+[rank1]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/torch/utils/checkpoint.py", line 1129, in unpack_hook
+[rank1]:     frame.check_recomputed_tensors_match(gid)
+[rank1]:   File "/home/xongrong/apping/counda/lib/python3.12/site-packages/torch/utils/checkpoint.py", line 903, in check_recomputed_tensors_match
+[rank1]:     raise CheckpointError(
+[rank1]: torch.utils.checkpoint.CheckpointError: torch.utils.checkpoint: Recomputed values for the following tensors have different metadata than during the forward pass.
+[rank1]: tensor at position 4:
+[rank1]: saved metadata: {'shape': torch.Size([4096]), 'dtype': torch.float32, 'device': device(type='cuda', index=1)}
+[rank1]: recomputed metadata: {'shape': torch.Size([0]), 'dtype': torch.float32, 'device': device(type='cuda', index=1)}
+[rank1]: tensor at position 6:
+[rank1]: saved metadata: {'shape': torch.Size([4608, 4096]), 'dtype': torch.float32, 'device': device(type='cuda', index=1)}
+[rank1]: recomputed metadata: {'shape': torch.Size([0]), 'dtype': torch.float32, 'device': device(type='cuda', index=1)}
+[rank1]: tensor at position 7:
+[rank1]: saved metadata: {'shape': torch.Size([4608]), 'dtype': torch.float32, 'device': device(type='cuda', index=1)}
+[rank1]: recomputed metadata: {'shape': torch.Size([0]), 'dtype': torch.float32, 'device': device(type='cuda', index=1)}
+[rank1]: tensor at position 29:
+[rank1]: saved metadata: {'shape': torch.Size([4096, 4096]), 'dtype': torch.float32, 'device': device(type='cuda', index=1)}
+[rank1]: recomputed metadata: {'shape': torch.Size([0]), 'dtype': torch.float32, 'device': device(type='cuda', index=1)}
+[rank1]: tensor at position 34:
+[rank1]: saved metadata: {'shape': torch.Size([4096]), 'dtype': torch.float32, 'device': device(type='cuda', index=1)}
+[rank1]: recomputed metadata: {'shape': torch.Size([0]), 'dtype': torch.float32, 'device': device(type='cuda', index=1)}
+[rank1]: tensor at position 36:
+[rank1]: saved metadata: {'shape': torch.Size([27392, 4096]), 'dtype': torch.float32, 'device': device(type='cuda', index=1)}
+[rank1]: recomputed metadata: {'shape': torch.Size([0]), 'dtype': torch.float32, 'device': device(type='cuda', index=1)}
